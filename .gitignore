@@ -22,3 +22,6 @@
 /config/auth.yml
 /config/database.yml
 /config/initializers/secret_token.rb
+
+# Ignore vagrant folder
+/.vagrant/
