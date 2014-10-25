@@ -42,10 +42,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Options to add more memory and cpus. You may want to uncomment this and
     # modify accordingly if your machines are running slow.
-    tendril.vm.provider "virtualbox" do |v|
-      v.memory = 1024
-      v.cpus = 2
-    end
+    #tendril.vm.provider "virtualbox" do |v|
+      #v.memory = 1024
+      #v.cpus = 2
+    #end
   end
 
   config.vm.define "sprout" do |sprout|
