@@ -31,6 +31,37 @@ We will install `tendril` first, as `sprout` connects to the scanner. However, y
     * `ssh -R 127.0.0.1:6379:127.0.0.1:6379 user@tendril-host` (log in to your remote VM, and forward your local Redis connection)
     * Inside the SSH session, run `sudo ./start-nepenthes-worker.sh`
 
+## Vagrant
+
+Alternatively, Vagrant can be used to setup the Nepenthes environment.
+At the moment, the Vagrant file will:
+* Create and launch the virtual machines (1 sprout, 1 tendril)
+* Provision both machines with the source code and required packages
+
+To launch, run `vagrant up`.
+
+If all goes well, there will be instructions at the end of the
+provisioning to launch the applications. Once all processes are running,
+you should be able to access Nepenthes on your host machine at
+[](http://localhost:8081/).
+
+### Extra Vagrant details
+
+The Vagrantfile uses the following configurations:
+* Two VMs in a NATed, host-only environment
+* The Tendril has a static IP of 192.168.50.3
+* The Sprout has a static IP of 192.168.50.2
+* The Tendril has 4GB of memory
+* The Sprout has 2GB memory
+
+### Vagrant caveats
+
+1. Use the latest 5.1.x version of Virtualbox. 5.0.28 was found to not
+   work with the configured Vagrant box (bento/ubuntu-16.04)
+2. Some versions of vagrant come packaged with a broken curl command. If
+   you see error messages along the lines of "unable to update box" or
+   errors pulling the box image, see [](https://github.com/mitchellh/vagrant/issues/7997).
+
 ## Usage
 * Add a region via http://localhost:3000/regions . The start and end test times must be numbers, and will be used to restrict scans to starting between the given hours (in UTC). Using "0" for each number will allow scans to run at any time. Note that a patch for this functionality is pending, and it does not work at the moment.
 * Go to http://localhost:3000/ip_addresses and add IP addresses. You can use single IP addresses (one per line, don't comma-separate them), ranges (192.168.1.0 - 192.168.5.255), or CIDR notation (10.0.0.0/24). If you want to tag all of the ranges you're entering at a time in some way (hosting facility, country, whatever), you can add tags for all of them (space-separated) in the appropriate field. To tag just addresses in a specific range, you can put them space-separated after the range, on the same line. Adding thousands of IP addresses will be a bit slow.

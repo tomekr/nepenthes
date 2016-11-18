@@ -94,16 +94,26 @@ echo -e "production:\n  adapter: mysql2\n  encoding: utf8\n" \
   " database: netpen\n  username: root\n  password: root" > config/database.yml
 
 echo -e "\n[*] Precompiling assets"
-RAILS_ENV=production bundle exec rake assets:precompile
+RAILS_ENV=production bundle exec rake -s assets:precompile
 
 echo -e "\n[*] Setting up database"
-RAILS_ENV=production rake db:setup
+RAILS_ENV=production rake -s db:setup
 
 echo -e "\n[*] Dropping Nepenthes server scripts in ~/"
 ln -s `pwd`/script/*server*.sh ../
 chmod +x script/*server*.sh
 
-echo -e "\n[*] Your Nepenthes credentials (SAVE THESE):\nUsername:" \
-  "netpen\nPassword: $NEPENTHES_PASS"
-
-echo -e "\n[*] Run ./start-nepenthes-server.sh to begin."
+echo -e "\n*************************************************************\n\n" \
+  "Vagrant has completed setting up you environment!\n\n" \
+  "Your Nepenthes credentials (SAVE THESE):\nUsername:" \
+  "netpen\nPassword: $NEPENTHES_PASS\n\n" \
+  "Now you can run the following commands to get things started:\n" \
+  "    1. From your host machine, run \`vagrant ssh sprout\` to log into the sprout VM\n" \
+  "    2. Within the sprout VM run \`sudo ./start-nepenthes-server.sh\`\n" \
+  "    3. Then \`ssh -R 127.0.0.1:6379:127.0.0.1:6379 vagrant@192.168.50.3\`. This will log you into the tendril VM. Use the password \"vagrant\"\n" \
+  "    4. From the tendril VM run \`sudo ./start-nepenthes-worker.sh\`\n" \
+  "    5. Optionally run  \`sudo ./watch-nepenthes-worker.sh\` to monitor the worker logs\n" \
+  "    6. On your host machine, navigate to http://localhost:8081\n" \
+  "    7. Log in with the following credentials (SAVE THESE):\n" \
+  "        Username: netpen\n         Password: $NEPENTHES_PASS\n\n" \
+  "\n*************************************************************\n\n"

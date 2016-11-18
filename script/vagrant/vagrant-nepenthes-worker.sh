@@ -83,5 +83,3 @@ bundle install --quiet --without local
 echo -e "\n[*] Dropping Nepenthes worker scripts in ~/"
 ln -s `pwd`/script/*worker*.sh ../
 chmod +x script/*worker*.sh
-
-echo -e "\n[*] Run ./start-nepenthes-worker.sh to begin."

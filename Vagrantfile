@@ -7,9 +7,7 @@ require 'pry'
 # https://atlas.hashicorp.com/boxcutter/boxes/ubuntu1604
 #
 # Also listed are the various configuration constants
-NEPENTHES_VM_BOX      = "bento/ubuntu-16.04"
-#NEPENTHES_VM_BOX      = "boxcutter/ubuntu1604"
-#NEPENTHES_VM_BOX_URL  = "https://atlas.hashicorp.com/boxcutter/boxes/ubuntu1604/versions/2.0.23/providers/virtualbox.box"
+NEPENTHES_VM_BOX  = "bento/ubuntu-16.04"
 SPROUT_VM_MEMORY  = 2048
 TENDRIL_VM_MEMORY = 4096
 DEFAULT_VM_CORES  = 1
@@ -27,12 +25,13 @@ Vagrant.configure("2") do |config|
   # tendril. This is the component that the sprout will connect to and manage.
   config.vm.define "tendril" do |tendril|
     tendril.vm.network "private_network", ip: "192.168.50.3"
+
     # This script installs and sets up the tendril
     tendril.vm.provision :shell, path: "script/vagrant/vagrant-nepenthes-worker.sh"
 
     tendril.vm.provider "virtualbox" do |v|
       v.memory = TENDRIL_VM_MEMORY
-      v.cpus = DEFAULT_VM_CORES
+      v.cpus   = DEFAULT_VM_CORES
     end
   end
 
@@ -46,13 +45,13 @@ Vagrant.configure("2") do |config|
     # you'll navigate to http://localhost:8081 on your host machine to reach
     # nepenthes
     sprout.vm.network 'forwarded_port', guest: 8080, host: 8081
-    #sprout.vm.network "forwarded_port", guest: 6397, host_ip: "192.168.50.3", host: 6379
+
     # This script installs and sets up the sprout
     sprout.vm.provision :shell, path: "script/vagrant/vagrant-nepenthes-server.sh"
 
     sprout.vm.provider "virtualbox" do |v|
       v.memory = SPROUT_VM_MEMORY
-      v.cpus = DEFAULT_VM_CORES
+      v.cpus   = DEFAULT_VM_CORES
     end
   end
 end
