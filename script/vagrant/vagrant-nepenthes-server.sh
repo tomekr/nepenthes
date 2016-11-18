@@ -21,24 +21,6 @@ else
   PACKAGES="$PACKAGES ruby ruby-dev"
 fi
 
-# Install RVM with ruby
-#gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-#curl -sSL https://get.rvm.io | bash -s stable
-
-#echo "source /usr/local/rvm/scripts/rvm" > /root/.bashrc
-#source /usr/local/rvm/scripts/rvm
-
-#rvm use --default --install ruby-2.3.0
-
-#shift
-
-#if (( $# ))
-#then gem install $@
-#fi
-
-#rvm cleanup all
-
-
 echo -e "\n[*] Setting root MySQL password to 'root'."
 echo "Do not expose this MySQL to the Internet."
 echo "mysql-server-5.5 mysql-server/root_password password root" | \
@@ -105,8 +87,6 @@ chmod +x script/*server*.sh
 
 echo -e "\n*************************************************************\n\n" \
   "Vagrant has completed setting up you environment!\n\n" \
-  "Your Nepenthes credentials (SAVE THESE):\nUsername:" \
-  "netpen\nPassword: $NEPENTHES_PASS\n\n" \
   "Now you can run the following commands to get things started:\n" \
   "    1. From your host machine, run \`vagrant ssh sprout\` to log into the sprout VM\n" \
   "    2. Within the sprout VM run \`sudo ./start-nepenthes-server.sh\`\n" \
